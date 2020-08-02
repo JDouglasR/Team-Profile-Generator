@@ -1,3 +1,4 @@
+const Employee = require('./lib/Employee');
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
@@ -9,8 +10,6 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
-const Choice = require("inquirer/lib/objects/choice");
-const Choices = require("inquirer/lib/objects/choices");
 
 let employees = [];
 
@@ -27,8 +26,10 @@ function promptUser() {
         const teamName = response.teamName;
         employees.push(teamName);
         addManager();
-    })
-}
+    }).catch(function(err) {
+        console.log(err)
+    });
+};
 
 function addManager(){
     inquirer.prompt([
@@ -57,8 +58,10 @@ function addManager(){
         const teamMember = new Manager(name, id, email, officeNumber)
         employees.push(teamMember)
         addTeamMember();  
-    })
-}
+    }).catch(function(err) {
+        console.log(err)
+    });
+};
 
 function addTeamMember() {
     inquirer.prompt([
@@ -85,8 +88,11 @@ function addTeamMember() {
             case "Done adding team members.":
                 buildTeam();
         }
-    })
-}
+    }).catch(function(err) {
+        console.log(err)
+    });
+};
+
 function addEngineer() {
     inquirer.prompt([
         {
@@ -114,8 +120,10 @@ function addEngineer() {
         const teamMember = new Engineer(name, id, email, github)
         employees.push(teamMember)
         addTeamMember();
-    })
-}
+    }).catch(function(err) {
+        console.log(err)
+    });
+};
 
 function addIntern() {
     inquirer.prompt([
@@ -144,12 +152,14 @@ function addIntern() {
         const teamMember = new Intern(name, id, email, school)
         employees.push(teamMember)
         addTeamMember();
-    })
-}
+    }).catch(function(err) {
+        console.log(err)
+    });
+};
 
 function buildTeam() {
-    render(employees);
     console.log(employees);
+    render(employees);
 }
 
 promptUser();
