@@ -16,21 +16,6 @@ const render = require("./lib/htmlRenderer");
 // Empty array that will take answer objects.
 let employees = [];
 
-// This fuction starts the prompts for Team Name, sets response in a variable, and calls addManager function.
-// function promptUser() {
-//     inquirer.prompt([
-//         {
-//             message: "What is your team name?",
-//             name: "teamName"
-//         }
-//     ]).then(function(response) {
-//         const teamName = response.teamName;
-//         addManager();
-//     }).catch(function(err) {
-//         console.log(err)
-//     });
-// };
-
 // This fuction starts the prompts for Manager, pushes an object of responses set in a variables to array, and calls addTeamMemember function.
 function addManager(){
     inquirer.prompt([
