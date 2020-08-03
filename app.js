@@ -1,4 +1,4 @@
-const Employee = require('./lib/Employee');
+// Variables for different filepaths and modules
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
@@ -6,31 +6,32 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
+// Variables to access path to write a new HTML file to.
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
+// Variable for path to file that renders the HTML.
 const render = require("./lib/htmlRenderer");
 
+// Empty array that will take answer objects.
 let employees = [];
 
+// This fuction starts the prompts for Team Name, sets response in a variable, and calls addManager function.
+// function promptUser() {
+//     inquirer.prompt([
+//         {
+//             message: "What is your team name?",
+//             name: "teamName"
+//         }
+//     ]).then(function(response) {
+//         const teamName = response.teamName;
+//         addManager();
+//     }).catch(function(err) {
+//         console.log(err)
+//     });
+// };
 
-// Write code to use inquirer to gather information about the development team members,
-// and to create objects for each team member (using the correct classes as blueprints!)
-function promptUser() {
-    inquirer.prompt([
-        {
-            message: "What is your team name?",
-            name: "teamName"
-        }
-    ]).then(function(response) {
-        const teamName = response.teamName;
-        employees.push(teamName);
-        addManager();
-    }).catch(function(err) {
-        console.log(err)
-    });
-};
-
+// This fuction starts the prompts for Manager, pushes an object of responses set in a variables to array, and calls addTeamMemember function.
 function addManager(){
     inquirer.prompt([
         {
@@ -63,6 +64,7 @@ function addManager(){
     });
 };
 
+// This fuction starts the prompt for addTeamMember.  Depending on the answer, it will call either addEngineer, addIntern, or the buildTeam function.
 function addTeamMember() {
     inquirer.prompt([
         {
@@ -93,6 +95,7 @@ function addTeamMember() {
     });
 };
 
+// This fuction starts the prompts for Engineer, pushes an object of responses set in a variables to array, and calls addTeamMemember function.
 function addEngineer() {
     inquirer.prompt([
         {
@@ -125,6 +128,7 @@ function addEngineer() {
     });
 };
 
+// This fuction starts the prompts for Intern, pushes an object of responses set in a variables to array, and calls addTeamMemember function.
 function addIntern() {
     inquirer.prompt([
         {
@@ -157,28 +161,11 @@ function addIntern() {
     });
 };
 
+// This function passes the employees array into the render function and sets the response to a variable. Then, writes the new HTML file to outpath directory.
 function buildTeam() {
-    console.log(employees);
-    render(employees);
-}
+     const finishedHtml = render(employees);
+    fs.writeFileSync(outputPath, finishedHtml);
+};
 
-promptUser();
-// After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
+addManager();
 
-// After you have your html, you're now ready to create an HTML file using the HTML
-// returned from the `render` function. Now write it to a file named `team.html` in the
-// `output` folder. You can use the variable `outputPath` above target this location.
-// Hint: you may need to check if the `output` folder exists and create it if it
-// does not.
-
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
-
-// HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-// and Intern classes should all extend from a class named Employee; see the directions
-// for further information. Be sure to test out each class and verify it generates an
-// object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! ```
