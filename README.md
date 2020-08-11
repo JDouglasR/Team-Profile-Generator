@@ -1,5 +1,5 @@
 
-### __*Team Profile Generator*__
+# __*Team Profile Generator*__
 ![GitHub](https://img.shields.io/github/license/JDouglasR/Team-Profile-Generator)
 ## __License__
 MIT
